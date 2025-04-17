@@ -2,6 +2,8 @@
 
 올리브영 - Redis Pub/Sub을 활용한 쿠폰 발급 비동기 처리
 
+https://oliveyoung.tech/2023-08-07/async-process-of-coupon-issuance-using-redis/
+
 ## 📌 목표
 
 1. 수만명이 몰리는 트래픽에도 쿠폰 다운로드 시간을 최소화한다.(5s 미만)
