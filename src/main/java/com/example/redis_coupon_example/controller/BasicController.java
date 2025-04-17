@@ -1,5 +1,6 @@
 package com.example.redis_coupon_example.controller;
 
+import com.example.redis_coupon_example.dto.CouponIssue;
 import com.example.redis_coupon_example.dto.response.CouponIssueResultDto;
 import com.example.redis_coupon_example.service.BasicService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class BasicController {
 
     @PostMapping("/{couponId}/issue/users/{userId}")
     public CouponIssueResultDto issue(@PathVariable("couponId") Long couponId, @PathVariable("userId") String userId) {
-        return basicService.issueCoupon(couponId, userId);
+        return basicService.issueCoupon(new CouponIssue(couponId, userId));
     }
 
 }
