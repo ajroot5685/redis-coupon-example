@@ -27,9 +27,7 @@ public class Coupon {
         issuedCount++;
     }
 
-    public void validateIssueAvailability() {
-        if (issuedCount >= totalCount) {
-            throw new IllegalArgumentException("남은 수량이 없습니다.");
-        }
+    public boolean isAvailableIssue() {
+        return issuedCount < totalCount;
     }
 }

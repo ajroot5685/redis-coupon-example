@@ -3,6 +3,8 @@ package com.example.redis_coupon_example.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,21 +31,26 @@ public class CouponLog {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "coupon_id", nullable = false)
+    @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
     @Column(nullable = false)
     private String userId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CouponLogStatus status;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime issuedAt;
 
 
-    public static CouponLog create(Coupon coupon, String userId) {
+    public static CouponLog create(Coupon coupon, String userId, CouponLogStatus status) {
         return CouponLog.builder()
                 .coupon(coupon)
                 .userId(userId)
+                .status(status)
                 .build();
     }
 }
