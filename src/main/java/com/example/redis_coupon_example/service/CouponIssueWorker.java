@@ -26,7 +26,6 @@ public class CouponIssueWorker {
                 return;
             }
 
-            // FIXME - 실패 로그가 중복 기록됨
             couponLogService.failIssue(null, couponIssue);
         }
     }
