@@ -1,32 +1,17 @@
 package com.example.redis_coupon_example.service;
 
-import com.example.redis_coupon_example.dto.CouponIssue;
-import com.example.redis_coupon_example.entity.Coupon;
-import com.example.redis_coupon_example.repository.CouponRepository;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CouponIssueWorker {
 
-    private final RedisTemplate<String, CouponIssue> redisTemplate;
-    private final CouponLogService couponLogService;
-    private final CouponRepository couponRepository;
+    private final CouponIssueWorkerLogic couponIssueWorkerLogic;
 
     public void onIssueMessage(String message) {
-        CouponIssue couponIssue = redisTemplate.opsForList().rightPop("coupon:queue");
-        if (couponIssue != null) {
-            Optional<Coupon> couponOptional = couponRepository.findById(couponIssue.couponId());
-
-            if (couponOptional.isPresent()) {
-                couponLogService.successIssue(couponOptional.get(), couponIssue);
-                return;
-            }
-
-            couponLogService.failIssue(null, couponIssue);
-        }
+        couponIssueWorkerLogic.logic();
     }
 }

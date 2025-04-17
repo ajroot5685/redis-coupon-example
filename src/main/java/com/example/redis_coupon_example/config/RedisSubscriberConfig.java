@@ -16,7 +16,22 @@ public class RedisSubscriberConfig {
     private final CouponIssueWorker couponIssueWorker;
 
     @Bean
-    public MessageListenerAdapter messageListener() {
+    public MessageListenerAdapter listener1() {
+        return new MessageListenerAdapter(couponIssueWorker, "onIssueMessage");
+    }
+
+    @Bean
+    public MessageListenerAdapter listener2() {
+        return new MessageListenerAdapter(couponIssueWorker, "onIssueMessage");
+    }
+
+    @Bean
+    public MessageListenerAdapter listener3() {
+        return new MessageListenerAdapter(couponIssueWorker, "onIssueMessage");
+    }
+
+    @Bean
+    public MessageListenerAdapter listener4() {
         return new MessageListenerAdapter(couponIssueWorker, "onIssueMessage");
     }
 
@@ -24,7 +39,10 @@ public class RedisSubscriberConfig {
     public RedisMessageListenerContainer container(RedisConnectionFactory factory) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(factory);
-        container.addMessageListener(messageListener(), new ChannelTopic("coupon:channel"));
+        container.addMessageListener(listener1(), new ChannelTopic("coupon:issue"));
+        container.addMessageListener(listener2(), new ChannelTopic("coupon:issue"));
+        container.addMessageListener(listener3(), new ChannelTopic("coupon:issue"));
+        container.addMessageListener(listener4(), new ChannelTopic("coupon:issue"));
         return container;
     }
 }

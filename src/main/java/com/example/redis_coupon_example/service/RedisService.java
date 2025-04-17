@@ -21,9 +21,9 @@ public class RedisService {
         Coupon coupon = couponReadService.getById(couponIssueDto.couponId());
 
         // 유효성 검사
-        if (!coupon.isAvailableIssue()) {
-            return couponLogService.failIssue(coupon, couponIssueDto);
-        }
+//        if (!coupon.isAvailableIssue()) {
+//            return couponLogService.failIssue(coupon, couponIssueDto);
+//        }
 
         redisTemplate.opsForList().leftPush("coupon:queue", couponIssueDto); // 쿠폰발급 데이터 추가
         redisTemplate.convertAndSend("coupon:issue", "쿠폰발급 요청 도착"); // publish
