@@ -1,9 +1,11 @@
-package com.example.redis_coupon_example.service;
+package com.example.redis_coupon_example.service.basic;
 
 import com.example.redis_coupon_example.dto.CouponIssue;
 import com.example.redis_coupon_example.dto.response.CouponIssueResultDto;
 import com.example.redis_coupon_example.entity.Coupon;
 import com.example.redis_coupon_example.repository.CouponRepository;
+import com.example.redis_coupon_example.service.CouponLogService;
+import com.example.redis_coupon_example.service.CouponReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

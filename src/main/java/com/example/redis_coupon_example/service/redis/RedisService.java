@@ -1,8 +1,12 @@
-package com.example.redis_coupon_example.service;
+package com.example.redis_coupon_example.service.redis;
+
+import static com.example.redis_coupon_example.constant.RedisConstants.COUPON_DATA_QUEUE;
 
 import com.example.redis_coupon_example.dto.CouponIssue;
 import com.example.redis_coupon_example.dto.response.CouponIssueResultDto;
 import com.example.redis_coupon_example.entity.Coupon;
+import com.example.redis_coupon_example.service.CouponLogService;
+import com.example.redis_coupon_example.service.CouponReadService;
 import com.example.redis_coupon_example.util.RoundRobinQueueSelector;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,7 +33,7 @@ public class RedisService {
 
         String workerTopic = roundRobinQueueSelector.nextWorkerTopic();
 
-        redisTemplate.opsForList().leftPush("coupon:queue", couponIssueDto); // 쿠폰발급 데이터 추가
+        redisTemplate.opsForList().leftPush(COUPON_DATA_QUEUE, couponIssueDto); // 쿠폰발급 데이터 추가
         redisTemplate.convertAndSend(workerTopic, "쿠폰발급 요청 도착"); // publish
 
         return new CouponIssueResultDto(true, coupon.getName());

@@ -1,11 +1,12 @@
 package com.example.redis_coupon_example.config;
 
+import static com.example.redis_coupon_example.constant.RedisConstants.WORKER_METHOD_NAME;
 import static com.example.redis_coupon_example.constant.RedisConstants.WORKER_TOPIC_1;
 import static com.example.redis_coupon_example.constant.RedisConstants.WORKER_TOPIC_2;
 import static com.example.redis_coupon_example.constant.RedisConstants.WORKER_TOPIC_3;
 import static com.example.redis_coupon_example.constant.RedisConstants.WORKER_TOPIC_4;
 
-import com.example.redis_coupon_example.service.CouponIssueWorker;
+import com.example.redis_coupon_example.service.redis.worker.CouponIssueWorker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,22 +23,22 @@ public class RedisSubscriberConfig {
 
     @Bean
     public MessageListenerAdapter listener1() {
-        return new MessageListenerAdapter(couponIssueWorker, "onIssueMessage");
+        return new MessageListenerAdapter(couponIssueWorker, WORKER_METHOD_NAME);
     }
 
     @Bean
     public MessageListenerAdapter listener2() {
-        return new MessageListenerAdapter(couponIssueWorker, "onIssueMessage");
+        return new MessageListenerAdapter(couponIssueWorker, WORKER_METHOD_NAME);
     }
 
     @Bean
     public MessageListenerAdapter listener3() {
-        return new MessageListenerAdapter(couponIssueWorker, "onIssueMessage");
+        return new MessageListenerAdapter(couponIssueWorker, WORKER_METHOD_NAME);
     }
 
     @Bean
     public MessageListenerAdapter listener4() {
-        return new MessageListenerAdapter(couponIssueWorker, "onIssueMessage");
+        return new MessageListenerAdapter(couponIssueWorker, WORKER_METHOD_NAME);
     }
 
     @Bean

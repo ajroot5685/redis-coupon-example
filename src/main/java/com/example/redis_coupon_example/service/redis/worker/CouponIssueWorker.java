@@ -1,4 +1,4 @@
-package com.example.redis_coupon_example.service;
+package com.example.redis_coupon_example.service.redis.worker;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

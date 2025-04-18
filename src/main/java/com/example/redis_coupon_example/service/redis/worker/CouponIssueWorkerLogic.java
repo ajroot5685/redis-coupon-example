@@ -1,7 +1,10 @@
-package com.example.redis_coupon_example.service;
+package com.example.redis_coupon_example.service.redis.worker;
+
+import static com.example.redis_coupon_example.constant.RedisConstants.COUPON_DATA_QUEUE;
 
 import com.example.redis_coupon_example.dto.CouponIssue;
 import com.example.redis_coupon_example.repository.CouponRepository;
+import com.example.redis_coupon_example.service.CouponLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,7 +25,7 @@ public class CouponIssueWorkerLogic {
     public void logic() {
 //        log.info("!@");
 //        log.info("작동 중인 스레드: {}", Thread.currentThread().getName());
-        CouponIssue couponIssue = redisTemplate.opsForList().rightPop("coupon:queue");
+        CouponIssue couponIssue = redisTemplate.opsForList().rightPop(COUPON_DATA_QUEUE);
         if (couponIssue != null) {
             couponRepository.findByIdWithLock(couponIssue.couponId())
                     .ifPresentOrElse(

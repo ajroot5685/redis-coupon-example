@@ -2,7 +2,7 @@ package com.example.redis_coupon_example.controller;
 
 import com.example.redis_coupon_example.dto.CouponIssue;
 import com.example.redis_coupon_example.dto.response.CouponIssueResultDto;
-import com.example.redis_coupon_example.service.BasicService;
+import com.example.redis_coupon_example.service.basic.BasicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
