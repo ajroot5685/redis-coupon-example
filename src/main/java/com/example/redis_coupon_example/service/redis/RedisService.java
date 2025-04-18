@@ -5,7 +5,6 @@ import static com.example.redis_coupon_example.constant.RedisConstants.COUPON_DA
 import com.example.redis_coupon_example.dto.CouponIssue;
 import com.example.redis_coupon_example.dto.response.CouponIssueResultDto;
 import com.example.redis_coupon_example.entity.Coupon;
-import com.example.redis_coupon_example.service.CouponLogService;
 import com.example.redis_coupon_example.service.CouponReadService;
 import com.example.redis_coupon_example.util.RoundRobinQueueSelector;
 import lombok.RequiredArgsConstructor;
@@ -19,17 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class RedisService {
 
     private final CouponReadService couponReadService;
-    private final CouponLogService couponLogService;
     private final RedisTemplate<String, CouponIssue> redisTemplate;
     private final RoundRobinQueueSelector roundRobinQueueSelector;
 
     public CouponIssueResultDto requestCouponIssue(CouponIssue couponIssueDto) {
-        Coupon coupon = couponReadService.getById(couponIssueDto.couponId());
-
-        // 유효성 검사
-//        if (!coupon.isAvailableIssue()) {
-//            return couponLogService.failIssue(coupon, couponIssueDto);
-//        }
+        Coupon coupon = couponReadService.getByIdWithLock(couponIssueDto.couponId());
 
         String workerTopic = roundRobinQueueSelector.nextWorkerTopic();
 

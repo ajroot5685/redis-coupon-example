@@ -12,6 +12,6 @@ public class CouponIssueWorker {
     private final CouponIssueWorkerLogic couponIssueWorkerLogic;
 
     public void onIssueMessage(String message) {
-        couponIssueWorkerLogic.logic();
+        couponIssueWorkerLogic.issueCoupon();
     }
 }

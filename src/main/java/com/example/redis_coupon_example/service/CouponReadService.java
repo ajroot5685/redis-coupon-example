@@ -13,7 +13,7 @@ public class CouponReadService {
 
     private final CouponRepository couponRepository;
 
-    public Coupon getById(Long id) {
+    public Coupon getByIdWithLock(Long id) {
         return couponRepository.findByIdWithLock(id)
                 .orElseThrow(() -> new IllegalArgumentException("조회된 쿠폰이 없습니다."));
     }
