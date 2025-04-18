@@ -9,6 +9,7 @@ import com.example.redis_coupon_example.service.CouponReadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class CouponIssueWorkerLogic {
     private final CouponLogService couponLogService;
     private final CouponReadService couponReadService;
 
+    @Async("couponWorker")
     @Transactional
     public void issueCoupon() {
         CouponIssue couponIssue = redisTemplate.opsForList().rightPop(COUPON_DATA_QUEUE);
